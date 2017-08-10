@@ -1,0 +1,60 @@
+{% extends 'app_users/base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">Account - {{ user.username }}</p>
+            </div>
+
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="list-group">
+                        <h1>Info</h1>
+                        <p>My referrer -
+                            {% if user.profile.get_referred %}
+                                {{ user.profile.get_referred.username }}
+                            {% else %}
+                                <b>root</b>
+                            {% endif %}
+                        </p>
+                        <p>Current referal code - {{ user.profile.referral_code }}</p>
+                        <form class="form-signin" action="{% url 'account' %}" method="post">
+                            {% csrf_token %}
+                            <button class="btn btn-primary" type="submit">Change</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="list-group">
+                        <h3>My referrals</h3>
+                        <table class="table">
+                            <tr>
+                                <th>Username</th>
+                                <th>Active</th>
+                                <th>Date</th>
+                            </tr>
+                            {% for user in user.profile.get_referrals %}
+                                <tr>
+                                    <td> {{ user.username }} </td>
+                                    <td> <span style="color:
+                                            {% if user.is_active %} green {% else %} red {% endif %}">
+                                    Active</span></td>
+                                    <td> {{ user.date_joined|date }} </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

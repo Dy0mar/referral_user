@@ -1,0 +1,21 @@
+{% extends 'app_users/base.html' %}
+{% block title %} {{ title }} {% endblock title %}
+
+{% block content %}
+    <div class="starter-template">
+        {% if user.is_authenticated %}
+            <h1>Hi, {{ user }}</h1>
+            <p>
+                Go to your <a href="{% url 'account' %}">Account</a>
+            </p>
+        {% else %}
+            <h1>Hi, bro</h1>
+            <p class="lead">Go
+                <a href="{% url 'login' %}">login</a>
+                or
+                <a href="{% url 'register' %}">register</a>
+            </p>
+        {% endif %}
+
+    </div>
+{% endblock content %}

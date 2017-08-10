@@ -1,0 +1,66 @@
+{% extends 'app_users/base.html' %}
+{% load static %}
+
+{% block head %}
+    {{ block.super }}
+    <link href="{% static 'app_users/css/signin.css' %}" rel="stylesheet">
+{% endblock head %}
+
+{% block content %}
+    <form class="form-signin" action="" method="post">{% csrf_token %}
+        <h2 class="form-signin-heading">Register user</h2>
+
+        {% if user_form.errors %}
+            {% for field in user_form %}
+                {{ field.label_tag }} {{ field }}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in user_form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for field in user_form %}
+                {{ field.label_tag }} {{ field }}
+            {% endfor %}
+        {% endif %}
+
+
+        {% if profile_form.errors %}
+            {% for field in profile_form %}
+                {{ field.label_tag }} {{ field }}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% for error in profile_form.non_field_errors %}
+                <div class="alert alert-danger">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% for field in profile_form %}
+                {{ field.label_tag }} {{ field }}
+            {% endfor %}
+        {% endif %}
+
+
+
+
+
+
+
+        <br>
+        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Register"/>
+    </form>
+{% endblock content %}
+
+
+
